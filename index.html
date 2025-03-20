@@ -26,7 +26,8 @@
             justify-content: center;
             align-items: center;
             gap: 20px; /* Butonlar arasındaki boşluk */
-            width: 100%;
+            width: auto;
+            position: relative; /* Butonların hizasını korumak için */
         }
         button {
             padding: 15px 30px;
@@ -35,7 +36,7 @@
             cursor: pointer;
             border-radius: 10px;
             transition: 0.3s ease;
-            position: absolute; /* Hareketli buton için gerekli */
+            position: relative;
         }
         #yes {
             background-color: #ff4081;
@@ -58,7 +59,7 @@
 </head>
 <body>
 
-    <h1>Beni seviyor musun? ❤️</h1>
+    <h1>Barışalım mı ? ❤️</h1>
     <div class="buttons">
         <button id="yes">Evet</button>
         <button id="no">Hayır</button>
@@ -70,30 +71,29 @@
         const yesButton = document.getElementById("yes");
         const message = document.getElementById("message");
 
-        // "Hayır" butonu başlangıç konumunu belirleme
-        noButton.style.left = "50%";
-        noButton.style.top = "50%";
-        noButton.style.transform = "translate(-50%, -50%)";
+        // "Hayır" butonu başlangıçta sabit kalsın
+        noButton.style.position = "relative";
 
         // "Hayır" butonu kaçsın ama çok uzağa gitmesin
         noButton.addEventListener("mouseenter", function () {
-            let maxX = window.innerWidth - noButton.clientWidth; // Ekran sınırlarını aşmaması için
-            let maxY = window.innerHeight - noButton.clientHeight;
+            let maxX = window.innerWidth - noButton.clientWidth - 20; // Ekran sınırlarını aşmaması için
+            let maxY = window.innerHeight - noButton.clientHeight - 20;
 
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
 
             // Butonun ekran dışına çıkmasını önle
-            x = Math.max(10, Math.min(x, maxX - 10));
-            y = Math.max(10, Math.min(y, maxY - 10));
+            x = Math.max(10, Math.min(x, maxX));
+            y = Math.max(10, Math.min(y, maxY));
 
+            noButton.style.position = "absolute";
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
         });
 
         // "Evet" butonuna basınca mesaj çıksın
         yesButton.addEventListener("click", function () {
-            message.textContent = " Bende Seni Seviyorum! ❤️🥰";
+            message.textContent = "Seni Seviyorum! ❤️🥰";
         });
     </script>
 
