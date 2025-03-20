@@ -63,7 +63,7 @@
 </head>
 <body>
 
-    <h1>Barışalım mı ? ❤️</h1>
+    <h1>Barışlaım mı ? ❤️</h1>
     <div class="buttons">
         <button id="yes">Evet</button>
         <button id="no">Hayır</button>
@@ -80,12 +80,12 @@
 
         // "Hayır" butonuna basılınca sadece ufak bir mesafe hareket ettir
         noButton.addEventListener("click", function () {
-            let moveX = (Math.random() * 40 - 20); // -20 ile +20 px arasında rastgele hareket
-            let moveY = (Math.random() * 40 - 20);
+            let moveX = (Math.random() * 30 - 15); // -15 ile +15 px arasında rastgele hareket
+            let moveY = (Math.random() * 30 - 15);
 
-            let maxX = window.innerWidth - noButton.clientWidth - 20; // Sağ sınır
-            let maxY = window.innerHeight - noButton.clientHeight - 20; // Alt sınır
-            
+            let maxX = window.innerWidth - noButton.clientWidth - 10; // Sağ sınır
+            let maxY = window.innerHeight - noButton.clientHeight - 10; // Alt sınır
+
             offsetX = Math.max(10, Math.min(offsetX + moveX, maxX));
             offsetY = Math.max(10, Math.min(offsetY + moveY, maxY));
 
