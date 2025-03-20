@@ -78,17 +78,20 @@
         let offsetX = 50; // Başlangıçta "Hayır" butonunun sol mesafesi
         let offsetY = 0;  // Başlangıçta "Hayır" butonunun yukarı-aşağı mesafesi
 
-        // "Hayır" butonu fareyle üzerine gelindiğinde biraz uzağa kaçsın ama çok uzaklaşmasın
-        noButton.addEventListener("mouseenter", function () {
-            let maxX = window.innerWidth * 0.6; // Çok uzağa gitmesini önlemek için sınır
-            let maxY = window.innerHeight * 0.6;
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
-            noButton.style.position = "absolute";
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
-        });
+        // "Hayır" butonuna basılınca sadece ufak bir mesafe hareket ettir
+        noButton.addEventListener("click", function () {
+            let moveX = (Math.random() * 40 - 20); // -20 ile +20 px arasında rastgele hareket
+            let moveY = (Math.random() * 40 - 20);
 
+            let maxX = window.innerWidth - noButton.clientWidth - 20; // Sağ sınır
+            let maxY = window.innerHeight - noButton.clientHeight - 20; // Alt sınır
+            
+            offsetX = Math.max(10, Math.min(offsetX + moveX, maxX));
+            offsetY = Math.max(10, Math.min(offsetY + moveY, maxY));
+
+            noButton.style.left = `${offsetX}px`;
+            noButton.style.top = `${offsetY}px`;
+        });
 
         // "Evet" butonuna basınca mesaj gözüksün
         yesButton.addEventListener("click", function () {
