@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evet / Hayır</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Butonlar arasındaki boşluk */
+            width: 100%;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s ease;
+            position: relative;
+        }
+        #yes {
+            background-color: #ff4081;
+            color: white;
+        }
+        #yes:hover {
+            background-color: #e91e63;
+        }
+        #no {
+            background-color: #9e9e9e;
+            color: white;
+        }
+        #message {
+            font-size: 24px;
+            color: #d50000;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Beni seviyor musun? ❤️</h1>
+    <div class="buttons">
+        <button id="yes">Evet</button>
+        <button id="no">Hayır</button>
+    </div>
+    <p id="message"></p>
+
+    <script>
+        const noButton = document.getElementById("no");
+        const yesButton = document.getElementById("yes");
+        const message = document.getElementById("message");
+
+        // "Hayır" butonu fareyle üzerine gelindiğinde biraz uzağa kaçsın ama çok uzaklaşmasın
+        noButton.addEventListener("mouseenter", function () {
+            let maxX = window.innerWidth * 0.6; // Çok uzağa gitmesini önlemek için sınır
+            let maxY = window.innerHeight * 0.6;
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            noButton.style.position = "absolute";
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        });
+
+        // "Evet" butonuna basınca mesaj çıksın
+        yesButton.addEventListener("click", function () {
+            message.textContent = "Seni Seviyorum! ❤️🥰";
+        });
+    </script>
+
+</body>
+</html>
