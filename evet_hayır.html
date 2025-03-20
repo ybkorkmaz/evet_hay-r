@@ -35,7 +35,7 @@
             cursor: pointer;
             border-radius: 10px;
             transition: 0.3s ease;
-            position: relative;
+            position: absolute; /* Hareketli buton için gerekli */
         }
         #yes {
             background-color: #ff4081;
@@ -70,13 +70,23 @@
         const yesButton = document.getElementById("yes");
         const message = document.getElementById("message");
 
-        // "Hayır" butonu fareyle üzerine gelindiğinde biraz uzağa kaçsın ama çok uzaklaşmasın
+        // "Hayır" butonu başlangıç konumunu belirleme
+        noButton.style.left = "50%";
+        noButton.style.top = "50%";
+        noButton.style.transform = "translate(-50%, -50%)";
+
+        // "Hayır" butonu kaçsın ama çok uzağa gitmesin
         noButton.addEventListener("mouseenter", function () {
-            let maxX = window.innerWidth * 0.6; // Çok uzağa gitmesini önlemek için sınır
-            let maxY = window.innerHeight * 0.6;
+            let maxX = window.innerWidth - noButton.clientWidth; // Ekran sınırlarını aşmaması için
+            let maxY = window.innerHeight - noButton.clientHeight;
+
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
-            noButton.style.position = "absolute";
+
+            // Butonun ekran dışına çıkmasını önle
+            x = Math.max(10, Math.min(x, maxX - 10));
+            y = Math.max(10, Math.min(y, maxY - 10));
+
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
         });
