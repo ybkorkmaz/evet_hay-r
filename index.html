@@ -37,10 +37,12 @@
             cursor: pointer;
             border-radius: 10px;
             transition: 0.3s ease;
+            position: absolute;
         }
         #yes {
             background-color: #ff4081;
             color: white;
+            position: relative;
         }
         #yes:hover {
             background-color: #e91e63;
@@ -48,7 +50,8 @@
         #no {
             background-color: #9e9e9e;
             color: white;
-            position: relative;
+            left: 50px;
+            top: 0px;
         }
         #message {
             font-size: 24px;
@@ -72,21 +75,23 @@
         const yesButton = document.getElementById("yes");
         const message = document.getElementById("message");
 
-        // "Hayır" butonu kaçarken ekranın dışına çıkmasın
-        noButton.addEventListener("mouseenter", function () {
-            let maxX = window.innerWidth - noButton.clientWidth - 20; // Sağdan taşmaması için
-            let maxY = window.innerHeight - noButton.clientHeight - 20; // Alttan taşmaması için
+        let offsetX = 50; // Başlangıçta "Hayır" butonunun sol mesafesi
+        let offsetY = 0;  // Başlangıçta "Hayır" butonunun yukarı-aşağı mesafesi
 
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
+        // "Hayır" butonuna basılınca biraz hareket ettir
+        noButton.addEventListener("click", function () {
+            offsetX += (Math.random() * 40 - 20); // -20 ile +20 px arasında hareket
+            offsetY += (Math.random() * 40 - 20); // -20 ile +20 px arasında hareket
 
-            // Ekranın sınırlarını aşmayı önle
-            x = Math.max(10, Math.min(x, maxX));
-            y = Math.max(10, Math.min(y, maxY));
+            // Ekranın dışına çıkmasını önle
+            let maxX = window.innerWidth - noButton.clientWidth - 20;
+            let maxY = window.innerHeight - noButton.clientHeight - 20;
+            
+            offsetX = Math.max(10, Math.min(offsetX, maxX));
+            offsetY = Math.max(10, Math.min(offsetY, maxY));
 
-            noButton.style.position = "absolute";
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+            noButton.style.left = `${offsetX}px`;
+            noButton.style.top = `${offsetY}px`;
         });
 
         // "Evet" butonuna basınca mesaj gözüksün
