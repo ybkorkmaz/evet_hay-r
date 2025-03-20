@@ -16,6 +16,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             overflow: hidden;
+            position: relative;
         }
         h1 {
             font-size: 24px;
@@ -25,8 +26,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px; /* Butonlar arasındaki boşluk */
-            width: 100%;
+            gap: 20px;
+            width: auto;
+            position: relative;
         }
         button {
             padding: 15px 30px;
@@ -35,11 +37,12 @@
             cursor: pointer;
             border-radius: 10px;
             transition: 0.3s ease;
-            position: relative;
+            position: absolute;
         }
         #yes {
             background-color: #ff4081;
             color: white;
+            position: relative;
         }
         #yes:hover {
             background-color: #e91e63;
@@ -47,6 +50,8 @@
         #no {
             background-color: #9e9e9e;
             color: white;
+            left: 50px;
+            top: 0px;
         }
         #message {
             font-size: 24px;
@@ -58,7 +63,7 @@
 </head>
 <body>
 
-    <h1>Barışalım mı ? ❤️</h1>
+    <h1>Beni seviyor musun? ❤️</h1>
     <div class="buttons">
         <button id="yes">Evet</button>
         <button id="no">Hayır</button>
@@ -70,18 +75,30 @@
         const yesButton = document.getElementById("yes");
         const message = document.getElementById("message");
 
-        // "Hayır" butonu fareyle üzerine gelindiğinde biraz uzağa kaçsın ama çok uzaklaşmasın
-        noButton.addEventListener("mouseenter", function () {
-            let maxX = window.innerWidth * 0.6; // Çok uzağa gitmesini önlemek için sınır
-            let maxY = window.innerHeight * 0.6;
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
-            noButton.style.position = "absolute";
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+        let offsetX = 50;
+        let offsetY = 0;
+
+        function moveNoButton() {
+            let moveX = (Math.random() * 30 - 15); // -15 ile +15 px arasında rastgele hareket
+            let moveY = (Math.random() * 30 - 15);
+
+            let maxX = window.innerWidth - noButton.clientWidth - 10;
+            let maxY = window.innerHeight - noButton.clientHeight - 10;
+
+            offsetX = Math.max(10, Math.min(offsetX + moveX, maxX));
+            offsetY = Math.max(10, Math.min(offsetY + moveY, maxY));
+
+            noButton.style.left = `${offsetX}px`;
+            noButton.style.top = `${offsetY}px`;
+        }
+
+        // Hem tıklama (PC) hem de dokunma (mobil) için olayları ekle
+        noButton.addEventListener("click", moveNoButton);
+        noButton.addEventListener("touchstart", function (e) {
+            e.preventDefault(); // Mobilde çift tıklama seçimi engelle
+            moveNoButton();
         });
 
-        // "Evet" butonuna basınca mesaj çıksın
         yesButton.addEventListener("click", function () {
             message.textContent = "Seni Seviyorum! ❤️🥰";
         });
